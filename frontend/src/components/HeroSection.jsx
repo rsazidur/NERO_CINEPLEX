@@ -16,21 +16,18 @@ const HeroSection = () => {
         <img src={assets.marvelLogo} alt="" className='max-h-11 lg:h-11 mt-20'/>
 
         <h1 className='text-5xl md:text-[70px] md:leading-18 font-semibold
-        max-w-110'>Guardians <br /> of the Galaxy </h1>
+        max-w-110'>Thunderbolts*</h1>
 
         <div className='flex items-center gap-4 text-gray-300'>
             <span>Action | Advebture | Sci-Fi</span>
             <div className='flex items-center gap-1'>
-                <CalendarIcon className='w-4.5 h-4.5' /> 2018
+                <CalendarIcon className='w-4.5 h-4.5' /> 2025
             </div>
             <div className='flex items-center gap-1'>
-                <ClockIcon className='w-4.5 h-4.5' /> 2h 16 min
+                <ClockIcon className='w-4.5 h-4.5' /> 2h 12 min
             </div>
         </div>
-        <p className='max-w-md text-gray-300'>Peter Quill (Chris Pratt) steals a mysterious orb, making him 
-          the target of a powerful villain, Ronan. To survive, he teams up with a group of misfits — Rocket 
-          Raccoon, Groot, Gamora, and Drax. When they learn the orb holds a cosmic threat, they must work 
-          together to save the universe.</p>
+        <p className='max-w-md text-gray-300'>After finding themselves ensnared in a death trap, an unconventional team of antiheroes must go on a dangerous mission that will force them to confront the darkest corners of their pasts.</p>
           <button onClick={()=> navigate('/movies')} className='flex items-center gap-1 px-6 py-3 text-sm bg-primary
           hover:bg-primary-dull transition-rounded-full font-medium cursor-pointer'>
             Explore Movies

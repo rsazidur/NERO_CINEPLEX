@@ -26,11 +26,11 @@ const Navbar = () => {
         
         <XIcon className='md:hidden abosolute top-6 right-6 w-6 h-6 cursor-pointer' onClick={()=> setIsOpen(!isOpen)}/>
 
-        <Link onClick={()=> {scrollTo(0,0), setIsOpen(false)}} to='/' >Home</Link>
-        <Link onClick={()=> {scrollTo(0,0), setIsOpen(false)}} to='/movies' >Movies</Link>
-        <Link onClick={()=> {scrollTo(0,0), setIsOpen(false)}} to='/' >Theaters</Link>
-        <Link onClick={()=> {scrollTo(0,0), setIsOpen(false)}} to='/' >Rekeases</Link>
-        <Link onClick={()=> {scrollTo(0,0), setIsOpen(false)}} to='/favorite' >Favorite</Link>
+        <Link onClick={()=> {scrollTo(0,0); setIsOpen(false)}} to='/' >Home</Link>
+        <Link onClick={()=> {scrollTo(0,0); setIsOpen(false)}} to='/movies' >Movies</Link>
+        <Link onClick={()=> {scrollTo(0,0); setIsOpen(false)}} to='/' >Theaters</Link>
+        <Link onClick={()=> {scrollTo(0,0); setIsOpen(false)}} to='/' >Rekeases</Link>
+        <Link onClick={()=> {scrollTo(0,0); setIsOpen(false)}} to='/favorite' >Favorite</Link>
       </div>
     
     <div className='flex items-center gap-8'>
