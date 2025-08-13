@@ -2,8 +2,10 @@ import React, { useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import Loading from '../components/Loading'
 import { ClockIcon } from 'lucide-react'
-import { dummyDateTimeData, dummyShowsData } from '../assets/assets'
+import { assets, dummyDateTimeData, dummyShowsData } from '../assets/assets'
 import { useState } from 'react'
+import BlurCircle from '../components/BlurCircle'
+import { groupRows, renderSeats } from '../utils/seatUtils'
 
 const SeatLayout = () => {
 
@@ -47,7 +49,19 @@ const SeatLayout = () => {
         </div>
       </div>
       {/* Seats Layout */}
-      <div></div>
+      <div className='relative flex-1 flex flex-col items-center max-md:mt-16'>
+        <BlurCircle top="-100px" left="-100px" />
+        <BlurCircle bottom="0" right="0" />
+        <h1 className='text-2xl font-semibold mb-4'>Select Your Seats</h1>
+        <img src={assets.screenImage} alt="screen" />
+        <p className='text-gray-400 text-sm mb-6'>SCREEN SIDE</p>
+
+        <div className='flex flex-col items-center mt-10 text-xs text-gray-300'>
+          <div className='grid grid-cols-2 md:grid-cols-1 gap-8 md:gap2 mb-6'>
+            {groupRows[0].map(row => renderSeats(row))}
+          </div>
+        </div>
+      </div>
     </div>
   
   ) : (
