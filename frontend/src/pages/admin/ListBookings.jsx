@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
-import dummyBookingData from '../../dummyData/dummyBookingData'
+import { dummyBookingData } from '../../assets/assets';
 import Loading from '../../components/Loading'
 import Title from '../../components/admin/Title'
 
