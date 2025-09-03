@@ -25,10 +25,9 @@ export const AppProvider = ({ children }) => {
             const { data } = await axios.get("/api/admin/is-admin", {headers:
                 {Authorization: `Bearer ${await getToken()}`}});
                 setIsAdmin(data.isAdmin);
-
-                if(!data.isAdmin && location.pathname.startsWith("/admin")){
-                    navigate("/");
-                    toast.error("Access Denied");
+                if(!data.isAdmin && location.pathname.startsWith('/admin')) {
+                    navigate('/');
+                    toast.error("Access denied. Admins only.");
                 }
         } catch (error) {
             console.error(error);
@@ -80,11 +79,10 @@ export const AppProvider = ({ children }) => {
         favoriteMovies, fetchFavoriteMovies
     }
     return (
-        <AppContext.Provider value={{value}}>
+        <AppContext.Provider value={value}>
             {children}
         </AppContext.Provider>
     );
 };
 
 export const useAppContext = () => useContext(AppContext);
-
