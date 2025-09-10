@@ -22,3 +22,27 @@ body {
 .no-scrollbar{
   scrollbar-width: none;
 }
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
+/* Show horizontal scrollbar for overflow-x-auto */
+.overflow-x-auto {
+  overflow-x: auto !important;
+  scrollbar-width: thin;
+}
+
+/* For Chrome/Edge/Safari */
+.overflow-x-auto::-webkit-scrollbar {
+  height: 8px;
+  background: #1e1e1e;
+}
+.overflow-x-auto::-webkit-scrollbar-thumb {
+  background: #787777;
+  border-radius: 4px;
+}

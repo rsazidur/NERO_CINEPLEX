@@ -1,14 +1,14 @@
-import { ChartLineIcon, CircleDollarSignIcon, Icon, PlayCircleIcon, UserIcon } from 'lucide-react';
-import React, { useEffect } from 'react'
-import { dummyDashboardData } from '../../assets/assets';
-import { useState } from 'react';
+import { ChartLineIcon, CircleDollarSignIcon, PlayCircleIcon, UserIcon, StarIcon } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
 import Loading from '../../components/Loading';
 import Title from '../../components/admin/Title';
 import BlurCircle from '../../components/BlurCircle';
-import { dateFormat } from '../../lib/dateFormat'
-import { StarIcon } from 'lucide-react';
+import { dateFormat } from '../../lib/dateFormat';
+import { useAppContext } from '../../context/AppContext';
+import { toast } from 'react-hot-toast';
 
 const Dashboard = () => {
+  const { axios, getToken, user, image_base_url } = useAppContext();
 
   const currency = import.meta.env.VITE_CURRENCY;
 
@@ -42,14 +42,34 @@ const Dashboard = () => {
       icon: UserIcon
     }
   ];
+
   const fetchDashboardData = async () => {
-    setDashboardData(dummyDashboardData)
-    setLoading(false);
+    try {
+      const { data } = await axios.get('/api/admin/dashboard', {
+        headers: { Authorization: `Bearer ${await getToken()}` }
+      });
+      if (data.success) {
+        setDashboardData({
+          totalBookings: data.data?.totalBookings ?? 0,
+          totalRevenue: data.data?.totalRevenue ?? 0,
+          activeShows: data.data?.activeShows ?? [],
+          totalUsers: data.data?.totalUser ?? 0 // backend might send totalUser
+        });
+        setLoading(false);
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error("Error fetching dashboard data");
+    }
   };
 
   useEffect(() => {
-    fetchDashboardData();
-  }, []);
+    if (user) {
+      fetchDashboardData();
+    }
+    // eslint-disable-next-line
+  }, [user]);
 
   return !loading ? (
     <>
@@ -79,19 +99,21 @@ const Dashboard = () => {
           <div key={show._id} className='w-55 rounded-lg overflow-hidden
           h-full pb-3 bg-primary/10 border border-primary/20
           hover:-translate-y-1 transition duration-300'>
-            <img src={show.movie.poster_path} alt='' className='h-60
-            w-full object-cover'/>
+            <img
+              src={image_base_url + show.movie.poster_path}
+              alt={show.movie.title}
+              className='h-60 w-full object-cover'
+              onError={e => { e.target.src = '/fallback.jpg'; }}
+            />
             <p className='font-medium p-2 truncate'>{show.movie.title}</p>
-            <div className='flex item-center justify-baseline px-2'>
+            <div className='flex items-center items-baseline justify-between px-2'>
               <p className='text-lg font-medium'>{currency}{show.showPrice}</p>
-              <p className='flex item-center gap-1 text-sm text-gray-400 mt-1 pr-1'>
-                <StarIcon className='w-4 h-4 text-primary
-                fill-primary' />
-                {show.movie.vote_average.toFixed(1)}
+              <p className='flex items-center gap-1 text-sm text-gray-400 mt-1 pr-1'>
+                <StarIcon className='w-4 h-4 text-primary fill-primary' />
+                {show.movie.vote_average?.toFixed(1)}
               </p>
             </div>
-            <p className='px-2 pt-2 text-sm text-gray-500'>{dateFormat
-            (show.showDateTime)}</p>
+            <p className='px-2 pt-2 text-sm text-gray-500'>{dateFormat(show.showDateTime)}</p>
           </div>
         ))}
       </div>
